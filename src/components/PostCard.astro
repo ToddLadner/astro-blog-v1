@@ -1,0 +1,72 @@
+---
+import { slugify, formatDate } from '../js/utils';
+import { Image } from 'astro:assets';
+import Link from './Link.astro';
+const { frontmatter, url, tag } = Astro.props;
+const Tag = tag;
+
+const { title, image, date, category, author, description } = frontmatter;
+---
+
+<style>
+  .card {
+    display: grid;
+    grid-template-columns: auto fit-content(75ch);
+    padding-block: var(--space-md); 
+    padding-inline-end: var(--space-md);
+    
+    &:not(:last-of-type) {
+      border-bottom: 2px solid var(--surface-4);
+    }
+  }
+
+  .title { margin-block-start: .5em; }
+
+  .badge {
+    font-size: var(-font-size-sm);
+    padding-inline: var(--space-2xs);
+    padding-block: var(--space-3xs);
+    background-color: var(--surface-2);
+    border-radius: var(--radius-lg);
+    align-self: flex-start;
+  }
+  img {
+    width: 300px;
+    aspect-ratio: 3/3.25;
+    object-fit: cover;
+  }
+
+  .link.primary { margin-top: auto; }
+</style>
+
+<article 
+  class="card"
+  style="gap: var(--space-md);"
+>
+  <a href={url}>
+    <Image src={image.src} alt={image.alt} format='avif' width="1200" height="600" />
+  </a>
+
+  <div 
+    class="flex flex-column stack"
+    style="--space: 1em"
+  >
+    <a 
+      href={`/category/${slugify(frontmatter.category)}/`} 
+      title={`View all posts in ${frontmatter.category}`} 
+      class="badge inline-flex"
+    >
+      {frontmatter.category}
+    </a>
+    <Tag class="title">{title}</Tag>
+    <p>{description}</p>
+    <p class="inline-flex" style="gap:var(--space-2xs)">
+      <span>by a <a href={`/author/${slugify(author)}/`}>{author}</a></span> | <span>{formatDate(date)}</span>
+    </p>
+    <Link 
+      text="Read More" 
+      href={url} 
+      style="primary" 
+    />
+  </div>
+</article>

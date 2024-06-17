@@ -1,0 +1,34 @@
+---
+import { slugify, formatDate } from '../js/utils';
+import { Image } from 'astro:assets';
+const {title, image, date, author, category, description} = Astro.props
+---
+
+<style>
+  .contain-center-content { 
+    max-width: 75ch;
+    margin-inline: auto;
+   }
+
+   .intro { 
+    color: var(--gray-4);
+    font-size:var(--font-size-lg) ;
+  }
+  img { 
+    border-radius: var(--radius-lg);
+    margin-top: var(--space-lg);
+  }
+</style>
+
+<div class="contain-center-content stack">
+  <a href="/blog" class="link">← Back to Blog</a>
+  <br />
+  
+  <h1 class="title">{title}</h1>
+  <p class="intro">{description}</p>
+  <small class="inline-block">
+    by a <a href={`/author/${slugify(author)}/`}>{author}</a> | {formatDate(date)} | <span class="inline-block">
+    <a href={`/category/${slugify(category)}/`} class="badge">{category}</a></span>
+  </small>
+</div>
+<Image src={image.src} alt={image.alt} width="1200" height="600" />

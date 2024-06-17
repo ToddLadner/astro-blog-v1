@@ -1,0 +1,25 @@
+---
+import { Icon } from 'astro-icon/components';
+import TheNavigation from './TheNavigation.astro';
+---
+<header class="max-inline-content flex flex-wrap items-center" >
+  <!-- Logo -->
+  <a href="/" class="logo inline-flex">
+    <Icon name="skull" title="Geometric Skull"/>
+    <span class="sr-only">Site Logo</span>
+  </a>
+  <p class="logo-text font-bold">SkullWerk</p>
+  <!-- Nav -->
+  <TheNavigation/>
+</header>
+
+<style>
+  header {
+
+    gap: var(--space-3xs-2xs); 
+    padding-block: var(--space-2xs-xs);
+    border-bottom: 2px solid var(--surface-4);
+  }
+
+  [data-icon="skull"] { size: var(--space-sm-md) }
+</style>

@@ -1,0 +1,19 @@
+/* Font Regular */
+@font-face {
+  font-family: Roboto;
+  src: local('Roboto'), url('/fonts/static/Roboto-Regular.ttf');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/*Font Variable */
+@font-face {
+  font-family: 'Roboto Flex';
+  src: 
+    local('Roboto Flex'), 
+    url('/fonts/RobotoFlex.ttf') format('truetype-variations') tech(color-COLRv1),
+    url('/fonts/RobotoFlex.ttf') format('truetype-variations'); /* safari */
+  font-weight: 100 1000;
+  font-stretch: 25% 150%;
+  font-display: swap;
+}

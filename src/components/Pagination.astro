@@ -1,0 +1,55 @@
+---
+// component imports
+import Link from "@components/Link.astro";
+import { Icon } from 'astro-icon/components';
+
+const { prevUrl, nextUrl } = Astro.props;
+---
+
+<style>
+  .pagination {
+    margin-top: auto;
+    border-block-start: 2px solid var(--surface-4);
+
+    display: flex;
+
+    > *:not(.divider) { flex: 1; }
+  }
+   a {
+    padding-block: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+   }
+   
+   .divider {
+    border: 1px solid var(--surface-4);
+   }
+</style>
+
+<nav class="pagination" aria-label="Blog pages">
+  { prevUrl && (
+    <a href={prevUrl} class="prev">
+      <Icon name="arrow-left-regular" title="arrow right"/>
+      Prev
+    </a>
+  )}
+  
+  { prevUrl && nextUrl && (
+    <span class="divider"></span>
+  )}
+  
+  { nextUrl && (
+    <a href={nextUrl} class="next">
+      Next
+      <Icon name="arrow-right-regular" title="arrow right"/>
+    </a>
+  )}
+
+
+
+
+
+
+</nav>

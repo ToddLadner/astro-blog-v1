@@ -1,0 +1,207 @@
+/*  TOC
+─────────────────────────────────
+01 scale-hover
+01 scroll-x-overflow
+01 Stack
+01 Visually hidden
+01 Informatonal Colors
+
+FLEX: PARENT
+01 Display
+02 Flex direction
+03 Flex wrap
+04 Justify content
+05 Align items
+06 Align content
+07 Align self
+
+FLEX: CHILDREN
+07 Align self
+
+Type Styles
+Adaptive Glass
+─────────────────────────────── */
+.max-inline-content {
+  padding-inline: max(1.5rem, calc(50vw - var(--content-size, 70em) / 2));
+}
+
+.scale-hover li:hover {
+  /* scale and translate the hovered item */
+}
+
+.scale-hover li:hover + li {
+  /* scale and translate the next item */
+}
+
+.scale-hover li:has(+ li:hover) {
+  /* scale and translate the previous item */
+}
+
+/* scroll-x-overflow */
+.scroll-x-overflow {
+  display: flex;
+  block-size: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-inline: contain;
+}
+
+.scroll-x-overflow > * { flex: 0 0 auto; }
+
+.scroll-x-overflow > img {
+  block-size: 100%;
+  flex-basis: auto;
+  width: auto;
+}
+
+.scroll-x-overflow > * + * { margin-inline-start: 1rem; }
+
+.overflow-x-hint { -webkit-mask-image: linear-gradient(to right, #0000, #000, #000, #0000); }
+
+/* Stack */
+.stack > * { margin-block: 0 }
+
+.stack > * + * { margin-block-start: var(--space, 1em); }
+
+/* Visually hidden */
+:is(.visually-hidden, .sr-only) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+
+/* Informatonal Colors */
+
+.success-bg { background-color: light-dark(var--green-6), var(--green-4); }
+
+.info-bg { background-color: light-dark(var--purple-6), var(--purple-4); }
+
+.warning-bg { background-color: light-dark(var--orange-6), var(--orange-4); }
+
+.danger-bg { background-color: light-dark(var--red-6), var(--red-4); }
+
+
+/* Position */
+
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+
+
+/* Display */ 
+
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+
+.block { display: block; }
+.inline-block { display: inline-block; }
+
+.grid { display: grid; }
+.grid-inline { display: inline-grid; }
+
+
+/* Flex Direction */
+
+.flex-row { flex-direction: row; }
+.flex-row-reverse { flex-direction: row-reverse; }
+
+.flex-column { flex-direction: column; }
+.flex-column-reverse { flex-direction: column-reverse; }
+
+
+/* Flex Wrap */
+
+.flex-nowrap { flex-wrap: nowrap; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-wrap-reverse { flex-wrap: wrap-reverse; }
+
+
+/* Justify Content */
+
+.justify-normal { justify-content: normal; }
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.justify-evenly { justify-content: space-evenly; }
+.justify-stretch { justify-content: space-stretch; }
+
+
+/* Align Items */
+
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.items-center { align-items: center; }
+.items-baseline { align-items: baseline; }
+.items-stretch { align-items: stretch; }
+
+
+/* Align Content */
+
+.content-normal { align-content: normal; }
+.content-start { align-content: flex-start; }
+.content-end { align-content: flex-end; }
+.content-center { align-content: center; }
+.content-between { align-content: space-between; }
+.content-around { align-content: space-around; }
+.content-evenly { align-content: space-evenly; }
+.content-baseline { align-content: baseline; }
+.content-stretch { align-content: stretch; }
+
+
+/* Align Self */
+
+.align-self-auto { align-self: auto; }
+.align-self-start { align-self: flex-start; }
+.align-self-center { align-self: center; }
+.align-self-end { align-self: flex-end; }
+.align-self-stretch { align-self: stretch; }
+.align-self-baseline { align-self: baseline; }
+
+
+/* Floats */
+
+.float-left { float: left }
+.float-right { float: right }
+
+/*  Type Styles */
+
+/* This should turn Roboto Flex into a monospaced font */
+:where(.monospaced) { font-variant-numeric: tabular-nums; }
+
+/* Should be font-style: oblique 10deg; */
+:where(.slanted) { font-variation-settings: "slnt" 10; }
+:where(.kinda-light) { font-weight: 125; }
+:where(.kinda-narrow) { font-stretch: 33.3%; }
+:where(.font-bold) { font-weight: 900; }
+
+@supports (font-variation-settings: normal) {
+  .font-bold {
+    --base-weight: 700;
+    
+    font-variation-settings: 
+      "wght" var(--base-weight, 0),
+      "GRAD" var(--base-grade);
+  } }
+
+Adaptive Glass
+.adaptive-glass {
+  --glass-lightness: 100%;
+  
+  background: hsl(0 0% var(--glass-lightness) / 50%);
+  backdrop-filter: blur(40px);
+  
+  
+@media
+ (prefers-color-scheme: dark) {
+    --glass-lightness: 0%;
+  }
+}

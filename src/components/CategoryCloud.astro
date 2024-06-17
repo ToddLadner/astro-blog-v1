@@ -1,0 +1,55 @@
+---
+import { formatBlogPosts, slugify } from "../js/utils";
+
+const allPosts = await Astro.glob("../pages/blog/*{.md,.mdx}");
+const formattedPosts = formatBlogPosts(allPosts);
+const allCategories = formattedPosts
+  .map((cat) => cat.frontmatter.category.toLowerCase())
+  .flat();
+
+const processedCats = allCategories.reduce((acc, category) => {
+  // check if the category exists in the acc
+  const value = acc[category] || 0;
+
+  return {
+    ...acc,
+    [category]: value + 1
+  }
+}, {})
+
+const { showCount } = Astro.props;
+
+---
+
+<style>
+  .badge {
+    font-size: var(-font-size-sm);
+    padding-inline: var(--space-2xs);
+    padding-block: var(--space-3xs);
+    background-color: var(--surface-2);
+    border-radius: var(--radius-lg);
+    align-self: flex-start;
+  }
+
+  .categories {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1em;
+  }
+</style>
+
+<ul role="list" class="categories">
+  {
+    Object.entries(processedCats).map(([key, val]) => (
+      <li>
+        <a class="badge" href={`/category/${slugify(key)}/`}>{key} {showCount && `(${val})`}</a>
+      </li>
+    ))
+  }
+  <small class="inline-flex" style="margin-top: 2em;">
+    <a href="/rss.xml">
+      Subscribe to RSS
+    </a>
+  </small>
+</ul>

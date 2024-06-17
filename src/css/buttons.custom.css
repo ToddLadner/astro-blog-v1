@@ -1,0 +1,120 @@
+/*  TOC
+──────────────────────────────────
+01 Primary
+02 Secondary
+03 Text
+04 Hug
+05 Icon
+06 Button sizes
+06 Button shape
+07 fx-spring
+─────────────────────────────── */
+
+/* 01 Primary */
+.primary {
+  --bg: linear-gradient(var(--brand-5), var(--brand-6));
+  --border: transparent;
+  --text: hsl(228 89% 100%);
+  --ink-shadow: 0 1px 0 hsl(228 57% 50%);
+  --highlight: hsl(175 94% 67% / 20%);
+  --icon-color: currentColor;
+  outline-color: var(--brand);
+
+  &:hover {
+    --bg: linear-gradient(var(--brand-6), var(--brand-7));
+  }
+}
+
+/* 02 Secondary */
+.secondary {
+  --bg: transparent;
+  --text: var(--text-1);
+  --ink-shadow: 0 1px 0 hsl(228 57% 50%);
+}
+
+/* 03 Plain */
+.plain {
+  --bg: transparent;
+  --border: none;
+  --ink-shadow: 0 1px 0 hsl(228 57% 50%);
+  --highlight: 0;
+}
+
+/* 04 Hug */
+.hug {
+  --padding-inline: 0;
+  --bg: transparent;
+  --border: none;
+  --ink-shadow: 0 1px 0 hsl(228 57% 50%);
+  --highlight: 0;
+}
+
+/* 05 Custom */
+.custom {
+  --bg: hsl(210 7% 56% / 20%);
+  --border: transparent;
+  --border-width: 0;
+  /* --text: hsl(228 89% 100%); */
+  --ink-shadow: 0 1px 0 hsl(228 10% 70%);
+}
+
+/* 05 Button icon only */
+button.circle {
+  --padding-inline: .125em; 
+  --padding-block: .125em;
+  width: 2.75em; 
+}
+
+/* 06 Button sizes */
+.xl { --size: var(--font-size-xl) }
+.lg { --size: var(--font-size-lg) }
+.md { --size: var(--font-size-md) }
+.sm { --size: var(--font-size-sm) }
+.xs { --size: var(--font-size-xs) }
+
+/* 07 Button shape */
+.square { --border-radius: 0 }
+.pill { --border-radius: var(--radius-2xl) }
+.circle {
+  --border-radius: 100%;
+  aspect-ratio: var(--ratio-square);
+}
+
+/* 08 Spring effect */
+.fx-spring {
+  /* hook into button api and customize */
+  --border: none;
+  --highlight: none;
+  
+  /* build our own props for nifty progressive enhancement */
+  --spring-easing: var(--ease-3);
+  --spring-duration: 145ms;
+
+  /* bump up the depth for this springy button */
+  box-shadow: var(--shadow-4);
+  
+  /* regular ease scale and box-shadow */
+  @media (prefers-reduced-motion: no-preference) {
+    transition: 
+      transform var(--spring-duration) var(--spring-easing),
+      box-shadow var(--spring-duration) var(--spring-easing),
+      /* this ensures the Open Props expando :focus outline effect */
+      outline-offset 145ms var(--ease-4);
+  }
+  
+  /* progressive enhancement to linear() spring */
+  /* https://developer.chrome.com/articles/css-linear-easing-function/ */
+  @supports (animation-timing-function: linear(0,.1, 1)) {
+    /* springy scale and box-shadow */
+    --spring-easing: var(--ease-spring-5);
+    
+    /* increase duration so there's time to spring */
+    --spring-duration: 1s;
+  }
+  
+  /* 10% smaller and weak shadow when pressing */
+  &:active {
+    transform: scale(.9);
+    box-shadow: var(--shadow-1);
+  }
+}

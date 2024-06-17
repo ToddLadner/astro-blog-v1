@@ -1,0 +1,180 @@
+/*
+Utopia Type 
+ @link https://utopia.fyi/type/calculator?c=320,16,1.2,1440,20,1.25,5,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12
+
+Utopia Space
+@link https://utopia.fyi/space/calculator?c=320,16,1.2,1440,20,1.25,5,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12
+*/
+
+/*  TOC
+──────────────────────────────────
+TYPOGRAPHY
+01 Font families
+02 Adaptive typography
+03 Fluid font sizes
+04 Lineheight
+05 Letter spacing
+06 Measure
+
+SPACING
+01 Fluid Space
+02 One-up pairs
+03 Custom pairs
+
+BORDERS
+01 Border sizes
+02 Border radius 
+03 Border radius conditional
+
+ASPECT RATIOS 
+01 Aspect ratios 
+
+Z INDEX
+01 Z-Index
+─────────────────────────────── */
+
+:root {
+  
+  /* TYPOGRAPHY */
+
+  /* 01 Font families */
+  --font-sans: 'Roboto Flex', Roboto, system-ui, -apple-system, Segoe UI, Ubuntu, Cantarell, Noto Sans, sans-serif;
+  --font-serif: ui-serif, serif;
+  --font-mono: Dank Mono, Operator Mono, Inconsolata, Fira Mono, ui-monospace, SF Mono, Monaco, Droid Sans Mono, Source Code Pro, monospace;
+
+  /* 02 Adaptive typography */
+  --base-weight: 400;
+  --base-grade: 0;
+
+  /* 03 Fluid font sizes */
+  --font-size-xs: clamp(0.6944rem, 0.6642rem + 0.1509vw, 0.8rem);
+  --font-size-sm: clamp(0.8331rem, 0.7854rem + 0.2384vw, 1rem);
+  --font-size-md: clamp(1rem, 0.9286rem + 0.3571vw, 1.25rem);
+  --font-size-lg: clamp(1.2rem, 1.0964rem + 0.5179vw, 1.5625rem);
+  --font-size-xl: clamp(1.44rem, 1.2934rem + 0.733vw, 1.9531rem);
+  --font-size-2xl: clamp(1.7281rem, 1.5244rem + 1.0188vw, 2.4413rem);
+  --font-size-3xl: clamp(2.0738rem, 1.7943rem + 1.3973vw, 3.0519rem);
+  --font-size-4xl: clamp(2.4881rem, 2.109rem + 1.8955vw, 3.815rem);
+
+  /* 04 Lineheight */
+  --lineheight-3xs: 0.95;
+  --lineheight-2xs: 1.1;
+  --lineheight-xs: 1.25;
+  --lineheight-sm: 1.375;
+  --lineheight-md: 1.5;
+  --lineheight-lg: 1.75;
+  --lineheight-xl: 2;
+
+  /* 05 Letter spacing */
+  --letterspacing-xs: -0.05em;
+  --letterspacing-sm: 0.025em;
+  --letterspacing-md: 0.05em;
+  --letterspacing-lg: 0.075em;
+  --letterspacing-xl: 0.15em;
+  --letterspacing-2xl: 0.5em;
+  --letterspacing-3xl: 0.75em;
+  --letterspacing-4xl: 1em;
+
+  /* 06 Measure */
+  --content-size-sm: 20ch;
+  --content-size-md: 45ch;
+  --content-size-lg: 60ch;
+  
+  /* SPACING */
+  
+  /* 01 Fluid Space */
+  --space-3xs: clamp(0.25rem, 0.2321rem + 0.0893vw, 0.3125rem);
+  --space-2xs: clamp(0.5rem, 0.4643rem + 0.1786vw, 0.625rem);
+  --space-xs: clamp(0.75rem, 0.6964rem + 0.2679vw, 0.9375rem);
+  --space-sm: clamp(1rem, 0.9286rem + 0.3571vw, 1.25rem);
+  --space-md: clamp(1.5rem, 1.3929rem + 0.5357vw, 1.875rem);
+  --space-lg: clamp(2rem, 1.8571rem + 0.7143vw, 2.5rem);
+  --space-xl: clamp(3rem, 2.7857rem + 1.0714vw, 3.75rem);
+  --space-2xl: clamp(4rem, 3.7143rem + 1.4286vw, 5rem);
+  --space-3xl: clamp(6rem, 5.5714rem + 2.1429vw, 7.5rem);
+
+  /* 02 One-up pairs */
+  --space-3xs-2xs: clamp(0.25rem, 0.1429rem + 0.5357vw, 0.625rem);
+  --space-2xs-xs: clamp(0.5rem, 0.375rem + 0.625vw, 0.9375rem);
+  --space-xs-sm: clamp(0.75rem, 0.6071rem + 0.7143vw, 1.25rem);
+  --space-sm-md: clamp(1rem, 0.75rem + 1.25vw, 1.875rem);
+  --space-md-lg: clamp(1.5rem, 1.2143rem + 1.4286vw, 2.5rem);
+  --space-lg-xl: clamp(2rem, 1.5rem + 2.5vw, 3.75rem);
+  --space-xl-2xl: clamp(3rem, 2.4286rem + 2.8571vw, 5rem);
+  --space-2xl-3xl: clamp(4rem, 3rem + 5vw, 7.5rem);
+
+  /* 03 Custom pairs */
+  --space-sm-lg: clamp(1rem, 0.5714rem + 2.1429vw, 2.5rem);
+
+
+  /* COLORS */
+
+  /* 01 Brand colors */
+  --brand-0: oklch(99% 0.03 var(--hue-brand, 0));
+  --brand-1: oklch(95% 0.06 var(--hue-brand, 0));
+  --brand-2: oklch(88% 0.12 var(--hue-brand, 0));
+  --brand-3: oklch(80% 0.14 var(--hue-brand, 0));
+  --brand-4: oklch(74% 0.16 var(--hue-brand, 0));
+  --brand-5: oklch(68% 0.19 var(--hue-brand, 0));
+  --brand-6: oklch(63% 0.2 var(--hue-brand, 0));
+  --brand-7: oklch(58% 0.21 var(--hue-brand, 0));
+  --brand-8: oklch(53% 0.2 var(--hue-brand, 0));
+  --brand-9: oklch(49% 0.19 var(--hue-brand, 0));
+  --brand-10: oklch(42% 0.17 var(--hue-brand, 0));
+  --brand-11: oklch(35% 0.15 var(--hue-brand, 0));
+  --brand-12: oklch(27% 0.12 var(--hue-brand, 0));
+  --brand-13: oklch(20% 0.09 var(--hue-brand, 0));
+  --brand-14: oklch(14% 0.07 var(--hue-brand, 0));
+  --brand-15: oklch(11% 0.05 var(--hue-brand, 0));
+  --brand-bright: oklch(65% 0.3 var(--hue-brand, 0));
+
+  /* 02 Brand Gray hue & croma */
+  --gray-hue: 270;
+  --gray-chroma: 0.02;
+
+
+  /* BORDER */
+
+  /* 01 Border sizes */
+  --border-size-sm: 1px;
+  --border-size-md: 2px;
+  --border-size-lg: 5px;
+
+  /* 02 Border radius */
+  --radius-sm: 2px;
+  --radius-md: 5px;
+  --radius-lg: 1rem;
+  --radius-xl: 2rem;
+  --radius-2xl: 4rem;
+  --radius-3xl: 8rem;
+
+  /* 03 Border radius conditional */
+  --radius-conditional-sm: clamp(0px, calc(100vw - 100%) * 1e5, var(--radius-sm));
+  --radius-conditional-md: clamp(0px, calc(100vw - 100%) * 1e5, var(--radius-md));
+  --radius-conditional-lg: clamp(0px, calc(100vw - 100%) * 1e5, var(--radius-lg));
+  --radius-conditional-xl: clamp(0px, calc(100vw - 100%) * 1e5, var(--radius-xl));
+  --radius-conditional-2xl: clamp(0px, calc(100vw - 100%) * 1e5, var(--radius-2xl));
+  --radius-conditional-3xl: clamp(0px, calc(100vw - 100%) * 1e5, var(--radius-3xl));
+
+  
+  /* ASPECT RATIOS */
+  
+  /* 01 Aspect ratios */
+  --ratio-square: 1;
+  --ratio-landscape: 4/3;
+  --ratio-portrait: 3/4;
+  --ratio-widescreen: 16/9;
+  --ratio-ultrawide: 18/5;
+  --ratio-golden: 1.618/1;
+
+  
+  /* Z-INDEX */
+  
+  /* 01 Z-Index */
+  --layer-1: 1;
+  --layer-2: 2;
+  --layer-3: 3;
+  --layer-4: 4;
+  --layer-5: 5;
+  --layer-important: 2147483647;
+}

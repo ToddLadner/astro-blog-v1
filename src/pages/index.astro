@@ -1,0 +1,50 @@
+---
+import Layout from '@layouts/Layout.astro';
+import PostCard from '@components/PostCard.astro';
+import Link from '@components/Link.astro';
+
+import { formatBlogPosts } from '@js/utils';
+
+// import the Image component and the image
+import { Image } from 'astro:assets';
+import heroImage from '@assets/fungi.jpg'
+import headshot from '@assets/headshot.jpg'
+import spaceBg from '@assets/space.jpg'
+
+// import the formatBlogPosts function
+const allPosts = await Astro.glob('@pages/blog/*{.md,.mdx}');
+const formattedPosts = formatBlogPosts(allPosts, {
+	limit: 3,
+});
+---
+
+<Layout title="Welcome to Astro.">
+	<div style={`background-image: url(${spaceBg.src});background-size: cover; height: 900px;`}>
+		Hero
+	</div>
+	<main class="max-inline-content" >
+		<Image
+      src={headshot}
+      alt="My headshot"
+      width="200"
+      height="330"
+    />
+		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
+		<p class="instructions">
+			To get started, open the directory <code>src/pages</code> in your project.<br />
+			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+		</p>
+		<img src="./src/assets/fungi.jpg" alt="A description of my image.">
+		<Image src={heroImage}  alt="A description of my image." />
+		<Image src={heroImage} format="avif" alt="A description of my image." />
+		
+		<h2>New Blog Post</h2>
+		
+		<ul>
+			{ 
+				formattedPosts.map((post) => <PostCard frontmatter={post.frontmatter} url={post.url} tag="h3"/>)
+			}
+		</ul>
+	</main>
+</Layout>
+

@@ -1,0 +1,226 @@
+
+
+/*  TOC
+─────────────────────────────────
+01 Custom Properties
+02 Padding
+03 Background color
+04 Border
+05 Hover highlight effect
+06 Text shadow
+07 Icon
+08 Button Base
+09 @media --OSdark
+10 @media --motionOK
+11 Disabled & @media --OSdark
+12 Hover
+13 Icon
+14 Adaptive submit text
+15 Red reset
+16 Matching submit & reset hover
+17 Dark theme for submit & reset
+18 Outline focus effect
+19 File input
+20 Cursor and touch adjustments
+─────────────────────────────── */
+
+:where(button,input[type="button"],input[type="submit"],input[type="reset"],input[type="file"]),
+:where(input[type="file"])::file-selector-button {
+  /* Custom Properties */
+  --size: var(--font-size-md);
+  --base-weight: 500;
+
+  --accent-light: hsl(210 100% 40%);
+  --accent-dark: hsl(210 50% 70%);
+  --accent: var(--accent-light);
+
+  --text-light: hsl(210 10% 30%);
+  --text-dark: hsl(210 5% 95%);
+  --text: var(--text-light);
+  
+  --bg-light: hsl(0 0% 100%);
+  --bg-dark: hsl(210 9% 31%);
+  --bg: var(--bg-light);
+
+  --input-well-light: hsl(210 16% 87%);
+  --input-well-dark: hsl(204 10% 10%);
+  --input-well: var(--input-well-light);
+
+  --padding-inline: 1.75ch;
+  --padding-block: .75ch;
+  
+  --border-radius: var(--radius-md);
+  --border-light: hsl(210 14% 89%);
+  --border-dark: var(--bg-dark);
+  --border: var(--border-light);
+  
+  --highlight-size: 0;
+  --highlight-light: hsl(210 10% 71% / 25%);
+  --highlight-dark: hsl(210 10% 5% / 25%);
+  --highlight: var(--highlight-light);
+  
+  --ink-shadow-light: 0 1px 0 var(--border-light);
+  --ink-shadow-dark: 0 1px 0 hsl(210 11% 15%);
+  --ink-shadow: var(--ink-shadow-light);
+  
+  --icon-size: .625lh;
+  --icon-color: var(--accent);
+
+  --shadow-color-light: 220 3% 15%;
+  --shadow-color-dark: 220 40% 2%;
+  --shadow-color: var(--shadow-color-light);
+  --shadow-strength-light: 1%;
+  --shadow-strength-dark: 25%;
+  --shadow-strength: var(--shadow-strength-light);
+  --shadow-1: 0 1px 2px -1px hsl(var(--shadow-color)/calc(var(--shadow-strength) + 9%));
+  --shadow-2: 0 3px 5px -2px hsl(var(--shadow-color)/calc(var(--shadow-strength) + 3%)),0 7px 14px -5px hsl(var(--shadow-color)/calc(var(--shadow-strength) + 5%));
+  
+  --shadow-depth-light: 0 1px var(--border-light);
+  --shadow-depth-dark: 0 1px var(--bg-dark);
+  --shadow-depth: var(--shadow-depth-light);
+
+  /* 
+  --transition-motion-reduce: ;
+  --transition-motion-ok:
+    box-shadow 145ms ease,
+    outline-offset 145ms ease;
+  --transition: var(--transition-motion-reduce); 
+  */
+  
+  /* Reset */
+  font: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: 1.5;
+  border-radius: var(--border-radius);
+  font-variation-settings: "wght" var(--base-weight, 0), "GRAD" var(--base-grade);
+}
+
+:where(input[type="button"]),
+:where(input[type="file"])::file-selector-button {
+  appearance: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :where(button,input[type="button"],input[type="submit"],input[type="reset"],input[type="file"]),
+  :where(input[type="file"])::file-selector-button {
+    --bg: var(--bg-dark);
+    --text: var(--text-dark);
+    --border: var(--border-dark);
+    --accent: var(--accent-dark);
+    --highlight: var(--highlight-dark);
+    --input-well: var(--input-well-dark);
+    --ink-shadow: var(--ink-shadow-dark);
+    --shadow-depth: var(--shadow-depth-dark);
+    --shadow-color: var(--shadow-color-dark);
+    --shadow-strength: var(--shadow-strength-dark);
+  }
+}
+
+/* 
+@media (prefers-reduced-motion: no-preference) {
+  :where(button,input[type="button"],input[type="submit"],input[type="reset"],input[type="file"]),
+  :where(input[type="file"])::file-selector-button {
+    --transition: var(--transition-motion-ok);
+  }
+} 
+*/
+
+/* Button */
+:where(button,input[type="button"],input[type="submit"],input[type="reset"]),
+:where(input[type="file"])::file-selector-button {
+  cursor: pointer;
+  touch-action: manipulation;
+
+  font-size: var(--size, 1rem);
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--border);
+  box-shadow: 
+    var(--shadow-2), 
+    var(--shadow-depth),
+    0 0 0 var(--highlight-size) var(--highlight);
+  text-shadow: var(--ink-shadow);
+  /* transition: var(--transition); */
+  
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1ch;
+  
+  font-weight: 700;
+  padding-block: var(--padding-block);
+  padding-inline: var(--padding-inline);
+  
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Icons */
+:where(button,input[type="button"],input[type="submit"],input[type="reset"]) > :where(svg, [data-icon]) {
+  flex-shrink: 0;
+  block-size: var(--icon-size);
+  inline-size: var(--icon-size);
+  stroke: var(--icon-color);
+  filter: drop-shadow(var(--ink-shadow));
+
+  /* fill: none; */
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* Hover effect size*/
+:where(button, input[type="button"], input[type="submit"], input[type="reset"]):where(:not(:active):hover) {
+  --highlight-size: .5rem;
+  transition:  box-shadow 175ms ease; 
+}
+
+/* disabled */
+:where(button,input[type="button"],input[type="submit"],input[type="reset"])[disabled] {
+  --bg: none;
+  --text-light: hsl(210 7% 40%);
+  --text-dark: hsl(210 11% 71%);
+
+  cursor: not-allowed;
+  box-shadow: var(--shadow-1);
+}
+
+/* Adaptive indigo text */
+:where([type="submit"], 
+form button:not([type],[disabled])) {
+  --text: var(--accent);
+  outline-color: currentColor;
+} 
+
+/* Red reset BUTTON */
+:where([type="reset"]) {
+  --border-light: hsl(0 100% 83%);
+  --highlight-light: hsl(0 100% 89% / 20%);
+  --text-light: hsl(0 80% 50%);
+  --text-dark: hsl(0 100% 89%);
+}
+
+:where([type="reset"]):focus-visible {
+  outline-color: currentColor;
+}
+
+/* file input */
+:where(input[type="file"]) {
+  inline-size: 100%;
+  max-inline-size: max-content;
+  background-color: var(--input-well);
+}
+
+:where(input[type="file"])::file-selector-button {
+  margin-inline-end: var(--padding-inline);
+}
+
+/* special dark theme styles */
+@media (prefers-color-scheme: dark) {
+  :where([type="submit"],[type="reset"],[disabled],form button:not([type="button"])) {
+    --bg: var(--input-well);
+  }
+}

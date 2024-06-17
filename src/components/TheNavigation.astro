@@ -1,0 +1,33 @@
+---
+import { Icon } from 'astro-icon/components';
+import Link from '@components/Link.astro';
+---
+<style>
+  nav { margin-left: auto; }
+
+  .nav-list {
+    display: flex;
+    gap: var(--space-sm);
+  }
+</style>
+
+<nav>
+  <ul role="list" class="nav-list">
+    <li><Link text="Home" href="/" style="primary" classes="nav-link"/></li>
+    <li><Link text="About" href="/about" style="primary" classes="nav-link"/></li>
+    <li><Link text="Blog" href="/blog/" style="primary" classes="nav-link"/></li>
+  </ul>
+</nav>
+
+<script>
+  // Sets an accessable aria-current='page' hook to use for styling
+ const navLinks = document.querySelectorAll('.nav-link');
+
+  navLinks.forEach((link) => { 
+    if(link.getAttribute("href") === window.location.pathname) {
+      link.setAttribute("aria-current", "page");
+    }
+  });
+</script>
+
+

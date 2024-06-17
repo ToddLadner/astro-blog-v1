@@ -1,0 +1,83 @@
+---
+import Layout from '@layouts/Layout.astro';
+import PostCard from '@components/PostCard.astro';
+import CategoryCloud from "@components/CategoryCloud.astro";
+import Pagination from "@components/Pagination.astro";
+
+import { formatBlogPosts } from '@js/utils';
+
+export async function getStaticPaths({ paginate }) {
+  const allPosts = await Astro.glob("./*{.md,.mdx}");
+  const formattedPosts = formatBlogPosts(allPosts);
+
+  return paginate(formattedPosts, {
+    pageSize: 2,
+  });
+}
+
+const { page } = Astro.props;
+---
+
+<style>
+  .layout { display: flex; }
+  
+  .page-title {
+    width: 100%;
+    padding-block: var(--space-md); 
+    padding-inline-end: var(--space-md); 
+    margin: 0 auto; 
+    border-bottom: 2px solid var(--surface-4) 
+  }
+  
+  .main-content { 
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border-right: 2px solid var(--surface-4) 
+  }
+
+  
+  .blog-posts {
+    > * { 
+      padding-block: var(--space-md); 
+      padding-inline-end: var(--space-md); 
+    }
+  }
+ 
+  .aside {
+    padding-block: var(--space-md); 
+    padding-inline-start: var(--space-md);
+  }
+  .aside-title { margin-block-end: var(--space-md);  }
+
+</style> 
+
+<Layout title="Welcome to Blog.">
+  <main class="max-inline-content layout">
+    <!-- Content -->
+    <div class="main-content">
+      <h1 class="page-title">
+        <span>Discover our latest posts</span>
+      </h1>
+      <div class="blog-posts">
+      {
+        page.data.map((post) => (
+          <PostCard
+            frontmatter={post.frontmatter}
+            url={post.url}
+            tag="h2"
+          />
+        ))
+      }
+      </div>
+      <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+    </div>
+    <!-- Sidebar -->
+    <aside class="aside" aria-label="Blog categories">
+      <h3 class="aside-title">Blog Categories</h3>
+      <CategoryCloud showCount={true}/>
+    </aside>
+  </main>
+</Layout>
+
+ 

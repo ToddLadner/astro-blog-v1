@@ -1,0 +1,81 @@
+---
+import Layout from '@layouts/Layout.astro';
+import PostHeader from '@components/PostHeader.astro';
+import CategoryCloud from "@components/CategoryCloud.astro";
+import RelatedPosts from "@components/RelatedPosts.astro";
+
+import { formatBlogPosts } from "../js/utils";
+
+const {frontmatter} = Astro.props
+const {title, description, image, date, category, author} = frontmatter
+
+const allPosts = await Astro.glob("../pages/blog/*{.md,.mdx}");
+const formattedPosts = formatBlogPosts(allPosts, {
+  sortByDate: false,
+});
+const relatedPosts = formattedPosts
+  .filter(
+    (post) =>
+      post.frontmatter.category.toLowerCase() === category.toLowerCase() &&
+      post.frontmatter.title !== title
+  )
+  .slice(0, 3);
+---
+
+<style>
+  .post-content {
+    max-width: 75ch;
+    margin-inline: auto;
+  }
+  .cat-container ul {
+    margin-top: 11rem;
+  }
+  aside {
+    max-width: 75ch;
+    margin-inline: auto;
+  }
+  
+</style>
+<style is:global>
+  img { border-radius: var(--radius-lg); }
+  .float-left, .float-right {
+   width: 50%;
+ }
+ .float-left {
+   margin-inline: -10% 2rem;
+   margin-block-end: 2rem;
+ }
+
+ .float-right {
+  margin-inline: 2rem -10%;
+  margin-block-end: 2rem;
+ }
+
+
+
+</style>
+
+<Layout {title} {description}>
+  <main class="max-inline-content stack" >
+    <article class="stack">
+      <PostHeader {title} {description} {image} {date} {category} {author} />
+      <div class="post-content stack">
+        <slot />
+      </div>
+    </article>  
+    <aside class="flex flex-wrap justify-between">
+      <div class="stack cat-container" aria-label="Blog categories">
+        <h2 class="h3">Blog Categories</h2>
+        <CategoryCloud/>
+      </div>
+      {
+        relatedPosts.length > 0 && (
+          <div class="container" aria-label="Related posts">
+            <h2 class="h3">Related Posts</h2>
+            <RelatedPosts {relatedPosts} />
+          </div>
+        )
+      }
+    </aside>
+  </main>
+</Layout>
